@@ -31,6 +31,7 @@ Returns a simple JSON to verify the API is running.
 **Response:**
 ```json
 "Base route"
+```
 
 ### ✅ Post Api
 **`https://loop-ai-v8ro.onrender.com/ingest`**  
@@ -39,7 +40,7 @@ Returns a simple ingestion id
 **Response:**
 ```json
 "ingestion_id": "660a6af1-c526-4088-90d0-9dd2ac62fda6""
-
+```
 
 ### ✅ Get Api
 **`https://loop-ai-v8ro.onrender.com/status/660a6af1-c526-4088-90d0-9dd2ac62fda6`**  
