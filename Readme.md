@@ -48,7 +48,6 @@ Returns a json that contains all important information
 
 **Response:**
 ```json
-"{
     "ingestion_id": "660a6af1-c526-4088-90d0-9dd2ac62fda6",
     "status": "completed",
     "batches": [
@@ -70,4 +69,4 @@ Returns a json that contains all important information
             "status": "completed"
         }
     ]
-}"
+```
