@@ -39,7 +39,7 @@ Returns a simple ingestion id
 
 **Response:**
 ```json
-"ingestion_id": "660a6af1-c526-4088-90d0-9dd2ac62fda6""
+"ingestion_id": "660a6af1-c526-4088-90d0-9dd2ac62fda6"
 ```
 
 ### ✅ Get Api
