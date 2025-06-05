@@ -1,9 +1,6 @@
 const http = require('http');
 const assert = require('assert');
-
 const BASE_URL = 'http://localhost:5000';
-
-// Helper to send HTTP request
 function httpRequest(method, path, data = null) {
   return new Promise((resolve, reject) => {
     const dataString = data ? JSON.stringify(data) : null;
@@ -17,7 +14,6 @@ function httpRequest(method, path, data = null) {
         'Content-Length': dataString ? Buffer.byteLength(dataString) : 0,
       },
     };
-
     const req = http.request(options, (res) => {
       let chunks = '';
       res.on('data', (chunk) => (chunks += chunk));
@@ -30,23 +26,17 @@ function httpRequest(method, path, data = null) {
         }
       });
     });
-
     req.on('error', reject);
-
     if (dataString) req.write(dataString);
     req.end();
   });
 }
-
-// Utility: Sleep for ms milliseconds
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 async function runTests() {
   console.log('Starting tests...');
-
-  // Test 1: POST /ingest with valid input and priority
+  // Test 1
   const ingestionResp1 = await httpRequest('POST', '/ingest', {
     ids: [1, 2, 3, 4, 5],
     priority: 'MEDIUM',

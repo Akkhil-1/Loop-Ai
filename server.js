@@ -1,12 +1,16 @@
 const express = require('express');
+// uuid is used to generate the unique id's for every process
+// for eg :- 3f29adf1-60a9-4a2a-b2b2-2e2fd4e89c2b
 const { v4: uuidv4 } = require('uuid');
 const app = express();
 app.use(express.json());
+const PORT = process.env.PORT || 5000;
 const PRIORITY = {
     HIGH: 3,
     MEDIUM: 2,
     LOW: 1
 };
+// store is like a temporary memory (in RAM) that holds all the data your app is working with while it's running
 const store = {
     ingestions: {},
     batches: {},
@@ -16,7 +20,6 @@ const store = {
 };
 function getOverallStatus(batches) {
     const statuses = batches.map(b => b.status);
-    
     if (statuses.every(s => s === 'completed')) return 'completed';
     if (statuses.some(s => s === 'triggered')) return 'triggered';
     if (statuses.some(s => s === 'yet_to_start')) return 'yet_to_start';
@@ -65,15 +68,13 @@ app.post('/ingest', (req, res) => {
     try {
         const { ids, priority = 'MEDIUM' } = req.body;
         
-        // Validate input
+        // Input validation that is given in the assignment
         if (!Array.isArray(ids) || ids.some(id => typeof id !== 'number' || id < 1 || id > 1e9 + 7)) {
             return res.status(400).json({ error: 'Invalid IDs' });
         }
-        
         if (!['HIGH', 'MEDIUM', 'LOW'].includes(priority)) {
             return res.status(400).json({ error: 'Invalid priority' });
         }
-        
         const ingestionId = uuidv4();
         const batches = [];
         const priorityValue = PRIORITY[priority];
@@ -112,11 +113,10 @@ app.post('/ingest', (req, res) => {
 app.get('/status/:ingestionId', (req, res) => {
     const { ingestionId } = req.params;
     const ingestion = store.ingestions[ingestionId];
-    
+    // basic input validation
     if (!ingestion) {
         return res.status(404).json({ error: 'Ingestion not found' });
     }
-    
     const batches = ingestion.batches.map(batchId => {
         const batch = store.batches[batchId];
         return {
@@ -132,12 +132,10 @@ app.get('/status/:ingestionId', (req, res) => {
         batches
     });
 });
+// base api for checking
 app.get('/base' , (req , res) => {
     res.json("Base route")
 })
-
-// Start server
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
