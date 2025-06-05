@@ -9,7 +9,7 @@ This is a Node.js + Express API that allows clients to send a list of IDs and re
 > 🌐 Base URL: `https://loop-ai-v8ro.onrender.com`  
 ---
 
-## 📦 How the App Works (Simple Explanation)
+## 📦 How the App Works
 
 - When you send a list of IDs to `/ingest`, the app:
   - Breaks them into **batches of 3**.
